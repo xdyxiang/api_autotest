@@ -1,0 +1,97 @@
+
+dengyouxin_api: &dengyouxin_api "*"
+dengyouxin_secret: &dengyouxin_secret "*"
+
+dengyouxin1_api: &dengyouxin1_api "*"
+dengyouxin1_secret: &dengyouxin1_secret "*"
+
+gg001_api: &gg001_api "*"
+gg001_secret: &gg001_secret "*"
+
+gg001001_api: &gg001001_api "*"
+gg001001_secret: &gg001001_secret "*"
+
+
+api_key: &api_key "*"
+secret_key: &secret_key "*"
+
+expdata: &expdata
+  code: 0
+  message: "OK"
+
+test_set_wallet_payment_address:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      coin: "*"
+      address: "*" #13rXG5iH9vxEuxthKsSi7MTmQ48ffpFrua
+      payment_password: "*"
+    expdata:
+      code: 8004
+      message: "Withdraw address format incorrect"
+
+test_get_wallet_payment_history:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      coin: "*"
+      start_date: null
+      end_date: null
+      utc: "false"
+      page: null
+      limit: null
+    expdata:
+      *expdata
+
+test_get_profit:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      coin: "*"
+    expdata:
+      *expdata
+
+test_get_profit_history:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "*"
+      start_date: null
+      end_date: null
+      utc: null # "true" or "false"
+      page: null
+      limit: null
+    expdata:
+      *expdata
+
+test_wallet_sweep:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      coin: "*"
+    expdata:
+      code: 403
+      message: "Operation Forbidden"
+
+test_wallet_withdraw:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      coin: "bsv"
+      address: "*"
+      amount: "5"
+      payment_password: "*"
+    expdata:
+      code: 403
+      message: "Operation Forbidden"
+
+

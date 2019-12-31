@@ -1,0 +1,91 @@
+
+api_key: &api_key "*"
+secret_key: &secret_key "*"
+
+expdata: &expdata
+  code: 0
+  message: "OK"
+
+test_get_account:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+    expdata:
+      *expdata
+
+test_get_account_sub:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      page: 1
+      limit: 50
+    expdata:
+      *expdata
+
+test_create_account_sub:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      account: "*"
+    expdata:
+      code: 3013
+      message: "Account name already exists"
+
+test_get_observer:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      page: 1
+      limit: 50
+    expdata:
+      *expdata
+
+test_create_observer:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      obsname: "*"
+    expdata:
+      code: 4062
+      message: "You can create 10 Watchers at most"
+
+test_create_sub_aggregate:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      account: "*"
+      obsname: "*"
+      withdraw_address:
+        - {"coin": "*", "address": "*"}
+        - {"coin": "*", "address": "*"}
+    expdata:
+      code: 3013
+      message: "Account name already exists"
+
+
+test_get_account_group:
+  -
+    testname: "1"
+    reqdata:
+      api_key: *api_key
+      coin: "BCH"
+    expdata:
+      *expdata
+
+  -
+    testname: "2"
+    reqdata:
+      api_key: *api_key
+      coin: "DCR"
+    expdata:
+      *expdata

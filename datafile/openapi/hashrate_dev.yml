@@ -1,0 +1,111 @@
+
+
+api_key: &api_key "*"
+
+
+expdata: &expdata
+  code: 0
+  message: "OK"
+
+test_get_hashrate:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "BTC"
+    expdata:
+      <<: *expdata
+#  -
+#    testname: "数据BSV"
+#    reqdata:
+#      api_key: *api_key
+#      coin: "BSV"
+#    expdata:
+#      <<: *expdata
+
+
+test_get_hashrate_history:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "*"
+      start_date: "2019-*-28"
+      end_date: "*-04-28"
+      utc: null
+      page: 1
+      limit: 10
+    expdata:
+      *expdata
+
+test_get_hashrate_chart:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "BTC"
+      interval: "min"
+      period: 10
+      utc: "true"
+    expdata:
+      *expdata
+
+test_get_hashrate_worker:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "BCH"
+      group_id: null
+      worker_status: active    # active/unactive
+      page: 1
+      limit: 50
+    expdata:
+      *expdata
+
+test_get_hashrate_worker_single:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      worker_id: 1
+    expdata:
+      code: 5003
+      message: "Worker not exist"
+
+# 获取矿工历史算力
+test_get_hashrate_worker_history:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      worker_id: 1
+      coin: "BTC"
+      start_date: null
+      end_date: null
+      utc: "false"
+      page: 1
+      limit: 10
+    expdata:
+      code: 5003
+      message: "Worker not exist"
+
+test_get_hashrate_group:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      coin: "BTC"
+      page: 1
+      limit: 10
+    expdata:
+      <<: *expdata
+
+test_get_hashrate_group_single:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      group_id: 18
+    expdata:
+      <<: *expdata

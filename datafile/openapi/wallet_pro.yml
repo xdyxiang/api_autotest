@@ -1,0 +1,82 @@
+
+api_key: &api_key "*"
+secret_key: &secret_key "*"
+
+expdata: &expdata
+  code: 0
+  message: "OK"
+
+test_set_wallet_payment_address:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      coin: "BTC"
+      address: "*" #*
+      payment_password: "*"
+    expdata:
+      code: 8004
+      message: "Withdraw address format incorrect"
+
+test_get_wallet_payment_history:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      coin: "*"
+      start_date: null
+      end_date: null
+      utc: "false"
+      page: null
+      limit: null
+    expdata:
+      *expdata
+
+test_get_profit:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      coin: "BTC"
+    expdata:
+      *expdata
+
+test_get_profit_history:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      coin: "BTC"
+      start_date: null
+      end_date: null
+      utc: null
+      page: null
+      limit: null
+    expdata:
+      *expdata
+
+test_wallet_sweep:
+  -
+    testname: "1.*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *secret_key
+      coin: "BTC"
+    expdata:
+      code: 403
+      message: "Operation Forbidden"
+
+test_wallet_withdraw:
+  -
+    testname: "*"
+    reqdata:
+      api_key: *api_key
+      secret_key: *api_key
+      coin: "zec"
+      address: "*"
+      amount: "0.01"
+      payment_password: "*"
+    expdata:
+      code: 403
+      message: "Operation Forbidden"
